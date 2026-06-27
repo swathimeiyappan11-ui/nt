@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Tracking</title>
+</head>
+<body>
+
+<h1>Order Tracking</h1>
+
+<p>Order ID: {{ order_id }}</p>
+
+<div id="status">
+    Waiting for updates...
+</div>
+
+<script>
+
+const orderId = {{ order_id }};
+
+const ws = new WebSocket(
+    `ws://127.0.0.1:8000/ws/${orderId}`
+);
+
+ws.onmessage = function(event) {
+    document.getElementById("status").innerHTML =
+        event.data;
+};
+
+</script>
+
+</body>
+</html>
